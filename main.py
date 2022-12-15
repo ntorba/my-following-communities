@@ -25,7 +25,7 @@ st.write(f'{username} follows {len(following_df)} users')
 
 # streamlit button that allows me to download the csv
 st.download_button(label=f"Download CSV of who {username} follows", data=following_df.to_csv(index=False), file_name="data/{username}_following.csv", mime="text/csv")
-st.download_button(label=f"Download CSV community aggregation for {username}", borg_community_df=following_df.to_csv(index=False), file_name="data/{username}_following.csv", mime="text/csv")
+st.download_button(label=f"Download CSV community aggregation for {username}", data=borg_community_df.to_csv(index=False), file_name="data/{username}_following.csv", mime="text/csv")
 
 st.write(f'{borg_community_df[borg_community_df["clusters.name"].isna()].shape[0]} users you follow are not included in any clusters.')
 
