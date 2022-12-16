@@ -45,7 +45,7 @@ def get_borg_influence(user):
 def get_cluster_info(df):
     df_rows = []
     # use conncurrent.futures to make requests to the borg api in parallel
-    with concurrent.futures.ThreadPoolExecutor() as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=16) as executor:
         futures = [executor.submit(get_borg_influence, user) for user in df.to_dict(orient="records")]
         for future in concurrent.futures.as_completed(futures):
             user, borg_influence = future.result()
