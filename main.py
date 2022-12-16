@@ -41,10 +41,8 @@ if "errors" in data:
     st.write(f"User {username} not found, please try again.")
 else: 
     user_id = data["data"][0]["id"]
-
-    
     # check if file f"data/{username}_following.csv" exists
-    if not os.path.exists(f"data/{username}_following.csv"):
+    if not os.path.exists(f"data/{username}--following.csv"):
         # if it doesn't exist, run save_following_to_csv
         # create a streamlit progress bar
         with st.spinner("Loading follows from twitter"):
@@ -112,5 +110,6 @@ else:
     # select username from dropdown 
     investigate_username = st.selectbox("Select a username to see which communities they belong to", min_group["username"].unique())
     # get the communities that user belongs in
-    user_communities = borg_community_df[borg_community_df["username"] == investigate_username]["clusters.name"].unique()
+    user_communities = borg_community_df[borg_community_df["username"] == investigate_username][["clusters.name", "latest_scores.rank"]].sort_values("latest_scores.rank", ascending=True)
+    user_communities['latest_scores.rank'] = user_communities['latest_scores.rank'].astype(int)
     st.write(user_communities)
