@@ -12,16 +12,26 @@ load_dotenv()
 
 twarc = Twarc2(bearer_token=os.environ["TWITTER_TOKEN"])
 
-st.title("See the Borg Community Landscape of who we follow on twitter")
+st.subheader('What is this?')
+st.write("This app is uses the api provided by [Hive](hive.one) to show the community landscape of who we follow on twitter. "
+    "The 'community landscape' is a visualization of which communities the people followed by a user are a part of, according to hive. \n"
+)
+st.write(
+    "I made this to help me understand the types of information I should expect from my twitter timeline (e.g. if I follow a bunch of people "
+    "talking about 'PKM' I should expect to see a lot of tweets about 'PKM' in my timeline). \n"
+    "I also want to use this to help me understand the interests of others (and hopefully find some cool accounts in cool communities I'm less aware of."
+)
 
+
+st.title("The Borg Community Landscape of who we follow on twitter")
 # streamlit dropdown of usernames for any users that have two csv's in the data/ directory
 usernames = list(set([file.split("--")[0] for file in os.listdir("data/") if file.endswith(".csv")]))
 # username = st.selectbox("Select a username", usernames)
 
-username_select_box = st.selectbox("See distribution for user who has already been loaded (selecting a user from this dropdown will load data muuuuch faster)", [None] + usernames)
+username_select_box = st.selectbox("Select pre-loaded user (selecting a user from this dropdown will load data muuuuch faster)", [None] + usernames)
 
 # get streamlit text input
-username_text_input = st.text_input("Enter a twitter username for a user not availble in the dropdown (can take much slower to load, might hit rate limit issues if a lot of you are using this at once)", value=username_select_box)
+username_text_input = st.text_input("Load new user (takes much longer to load - might hit rate limit issues if a lot of you are using this at once)", value=username_select_box)
 
 username = None
 if username_select_box is not None:
