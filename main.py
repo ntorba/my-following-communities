@@ -49,14 +49,14 @@ else:
         # create a streamlit progress bar
         with st.spinner("Loading follows from twitter"):
             following_df = save_following_to_csv(user_id, username)
-        with st.spinner("Loading community info from borg (this can take some time)"):
+        with st.spinner("Loading community info from borg (this can take some time, especially if the user follows a lot of people)"):
             borg_community_df = get_cluster_info(following_df)
-            borg_community_df.to_csv(f"data/{username}_borg_community_info.csv", index=False)
+            borg_community_df.to_csv(f"data/{username}--borg_community_info.csv", index=False)
 
     else:
         # if it does exist, load the csv into a dataframe
-        following_df = pd.read_csv(f"data/{username}_following.csv")
-        borg_community_df = pd.read_csv(f"data/{username}_borg_community_info.csv")
+        following_df = pd.read_csv(f"data/{username}--following.csv")
+        borg_community_df = pd.read_csv(f"data/{username}--borg_community_info.csv")
     
     # load both csv's into pandas dataframes
     # following_df = pd.read_csv(f"data/{username}_following.csv")

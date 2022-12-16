@@ -33,7 +33,7 @@ def get_following(user_id):
 # save the users that nicktorba follows to a csv
 def save_following_to_csv(user_id, username):
     following_df = get_following(user_id)
-    following_df.to_csv(f"data/{username}_following.csv", index=False)
+    following_df.to_csv(f"data/{username}--following.csv", index=False)
     return following_df
 
 # function that makes a request to the borg api, with the user id inserted, and returns the response
@@ -90,7 +90,7 @@ def save_following(username):
     df = save_following_to_csv(user_id, username)
     com_df = get_cluster_info(df)
     # use twarc to get the user_id from username
-    com_df.to_csv(f"data/{username}_borg_community_info.csv", index=False)
+    com_df.to_csv(f"data/{username}--borg_community_info.csv", index=False)
 
     
 if __name__ == "__main__":
