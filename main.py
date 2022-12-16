@@ -12,16 +12,16 @@ load_dotenv()
 
 twarc = Twarc2(bearer_token=os.environ["TWITTER_TOKEN"])
 
-st.title("See the Borg Community Landscape of who you follow on twitter")
+st.title("See the Borg Community Landscape of who we follow on twitter")
 
 # streamlit dropdown of usernames for any users that have two csv's in the data/ directory
 usernames = list(set([file.split("--")[0] for file in os.listdir("data/") if file.endswith(".csv")]))
 # username = st.selectbox("Select a username", usernames)
 
-username_select_box = st.selectbox("See distribution for user who has already been loaded", [None] + usernames)
+username_select_box = st.selectbox("See distribution for user who has already been loaded (selecting a user from this dropdown will load data muuuuch faster)", [None] + usernames)
 
 # get streamlit text input
-username_text_input = st.text_input("Enter a twitter username for a user not availble in the dropdown", value=username_select_box)
+username_text_input = st.text_input("Enter a twitter username for a user not availble in the dropdown (can take much slower to load, might hit rate limit issues if a lot of you are using this at once)", value=username_select_box)
 
 username = None
 if username_select_box is not None:
@@ -47,7 +47,7 @@ else:
         # create a streamlit progress bar
         with st.spinner("Loading follows from twitter"):
             following_df = save_following_to_csv(user_id, username)
-        with st.spinner("Loading community info from borg (this can take some time, especially if the user follows a lot of people)"):
+        with st.spinner("Loading community info from borg (this can take some time, especially if the user follows a lot of accounts)"):
             borg_community_df = get_cluster_info(following_df)
             borg_community_df.to_csv(f"data/{username}--borg_community_info.csv", index=False)
 
