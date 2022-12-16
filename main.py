@@ -15,7 +15,7 @@ twarc = Twarc2(bearer_token=os.environ["TWITTER_TOKEN"])
 st.title("See the Borg Community Landscape of who you follow on twitter")
 
 # streamlit dropdown of usernames for any users that have two csv's in the data/ directory
-usernames = list(set([file.split("_")[0] for file in os.listdir("data/") if file.endswith(".csv")]))
+usernames = list(set([file.split("--")[0] for file in os.listdir("data/") if file.endswith(".csv")]))
 # username = st.selectbox("Select a username", usernames)
 
 username_select_box = st.selectbox("See distribution for user who has already been loaded", [None] + usernames)

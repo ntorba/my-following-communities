@@ -47,6 +47,9 @@ def get_cluster_info(df):
     # use conncurrent.futures to make requests to the borg api in parallel
     with concurrent.futures.ThreadPoolExecutor(max_workers=16) as executor:
         futures = [executor.submit(get_borg_influence, user) for user in df.to_dict(orient="records")]
+        my_bar = st.progress(0)
+        total = df.shape[0]
+        count = 0
         for future in concurrent.futures.as_completed(futures):
             user, borg_influence = future.result()
             if 'error' in borg_influence:
@@ -70,6 +73,8 @@ def get_cluster_info(df):
                 cluster = {f'clusters.{key}': value for key, value in cluster.items()}
                 row = {**score_dict, **cluster, **user}
                 df_rows.append(row)
+            count += 1
+            my_bar.progress(count/total)
     return pd.DataFrame(df_rows)
 
 
