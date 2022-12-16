@@ -26,7 +26,8 @@ username_text_input = st.text_input("Enter a twitter username for a user not ava
 username = None
 if username_select_box is not None:
     username = username_select_box
-elif username_text_input is not None:
+if username_text_input is not None:
+    # this SHOULD overwrite the username if it was set by the selectbox
     username = username_text_input
 
 if username == "None": # TODO: wtf is happening here..?
