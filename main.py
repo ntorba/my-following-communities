@@ -56,21 +56,18 @@ else:
         following_df = pd.read_csv(f"data/{username}--following.csv")
         borg_community_df = pd.read_csv(f"data/{username}--borg_community_info.csv")
     
-    # load both csv's into pandas dataframes
-    # following_df = pd.read_csv(f"data/{username}_following.csv")
-    # borg_community_df = pd.read_csv(f"data/{username}_borg_community_info.csv")
 
     # streamlit table that displays the dataframe
     st.subheader(f"Showing community distribution of the accounts {username} follows")
-    st.write(f'{username} follows {len(following_df)} users')
+    st.write(f'**{username}** follows {len(following_df)} users')
 
     # streamlit button that allows me to download the csv
-    st.download_button(label=f"Download CSV of who {username} follows", data=following_df.to_csv(index=False), file_name=f"data/{username}_following.csv", mime="text/csv")
-    st.download_button(label=f"Download CSV of community aggregation for {username}", data=borg_community_df.to_csv(index=False), file_name=f"data/{username}_following.csv", mime="text/csv")
+    st.download_button(label=f"Download CSV of who **{username}** follows", data=following_df.to_csv(index=False), file_name=f"data/{username}_following.csv", mime="text/csv")
+    st.download_button(label=f"Download CSV of community aggregation for **{username}**", data=borg_community_df.to_csv(index=False), file_name=f"data/{username}_following.csv", mime="text/csv")
 
     st.write(f'{borg_community_df[borg_community_df["clusters.name"].isna()].shape[0]} users {username} follows are not included in any clusters.')
 
-    st.write(f'Users {username} follows are included in {borg_community_df["clusters.name"].nunique()} unique communities.')
+    st.write(f'Users **{username}** follows are included in {borg_community_df["clusters.name"].nunique()} unique communities.')
 
 
     # streamlit select range of top communities to display
